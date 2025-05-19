@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Book App</title>
+        <link rel="icon" href="{% static 'images/book.png' %}" >
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+    </head>
+    <body>
+        
+
+            <div class="profile-card">
+              <div class="profile-header">
+                <h1>Book Detail</h1>
+              </div>
+          
+              <div class="profile-details">
+                <p><strong>Title:</strong> {{ book.title }}</p>
+                <p><strong>Author:</strong> {{ book.author }}</p>
+                <p><strong>Price:</Strong>{{book.price}}</p>
+                <p><strong>Published Date:</strong> {{ book.published_date }}</p>
+              </div>
+          
+              <div class="back-btn">
+                <a href="{% url 'book_list' %}">← Back to List</a>
+              </div>
+            </div>
+            
+          
+    </body>
+</html>
