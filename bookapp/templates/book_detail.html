@@ -1,15 +1,10 @@
-<!DOCTYPE html>
-{% load static %}
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Book App</title>
-        <link rel="icon" href="{% static 'images/book.png' %}" >
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="">
-    </head>
+{% extends 'index.html' %}
+
+{% block welcome_message %}
+
+{% endblock %}
+
+{% block body_block %}
     <body>
         
 
@@ -33,3 +28,4 @@
           
     </body>
 </html>
+ {% endblock %}

@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Book
-from .forms import BookForm,UploadFileForm
+from .models import Book,Account
+from .forms import BookForm,UploadFileForm,LoginForm,UserRegistrationForm
 from django.contrib import messages
 import pandas as pd
 from django.http import HttpResponse
@@ -8,6 +8,55 @@ from openpyxl.styles import Font, Border, Side
 from openpyxl import Workbook
 from openpyxl.utils.dataframe import dataframe_to_rows
 from django.db import IntegrityError
+from django.contrib.auth import authenticate,login,logout
+from django.contrib.auth.decorators import login_required
+
+@login_required
+def home_view(request):
+    return render(request,'index.html')
+
+def login_view(request):
+    if request.method == "POST":
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get("username")
+            password = form.cleaned_data.get("password")
+            user = authenticate(request, username=username, password=password)
+            if user:
+                login(request, user)
+                print('login success')
+                
+                return redirect('home')
+            else:
+                print('login failed')
+                messages.error(request, "Invalid username or password")
+                
+    else:
+        form = LoginForm()
+
+    return render(request, 'login.html', {'form':form})
+
+def sign_out(request):
+     logout(request)
+     return redirect('userlogin')
+
+def registration(request):
+    
+    if request.method =="POST":
+       form=UserRegistrationForm(request.POST)
+       if form.is_valid():
+          form.save()
+          messages.success(request, "User registered successfully!")
+          return redirect("userlist")
+       else:
+          messages.error(request,"Registration failed.")
+    else:
+        form=UserRegistrationForm()
+    return render(request,'registration.html',{'form':form})
+
+def userlist(request):
+        users=Account.objects.all()
+        return render(request,'userlist.html',{'users':users})
 
 # Create
 def book_create(request):

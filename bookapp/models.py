@@ -1,4 +1,13 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
+
+class Account(AbstractUser):
+    created_by = models.CharField(max_length=20,blank=True)
+    created_date = models.DateTimeField(auto_now_add=True,blank=True, null=True) 
+    modified_by = models.CharField(max_length=20, null=True, blank=True)    
+    modified_date = models.DateTimeField(null=True, blank=True)   
+   
+ 
 
 class Book(models.Model):
     title = models.CharField(max_length=200,blank=False,null=False)
@@ -18,6 +27,9 @@ class Book(models.Model):
         # unique_together = ('title', 'author')
     def __str__(self):
         return self.title
+
+        
+ 
     
 
 class Study(models.Model):
