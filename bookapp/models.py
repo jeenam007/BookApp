@@ -21,10 +21,10 @@ class Book(models.Model):
     updated_date=models.DateTimeField(auto_now=True)
  
     class Meta:
-        constraints = [
-            models.UniqueConstraint(fields=['title', 'author'], name='unique_book_title_author')
-        ]
-        # unique_together = ('title', 'author')
+        # constraints = [
+        #     models.UniqueConstraint(fields=['title', 'author'], name='unique_book_title_author')
+        # ]
+        unique_together = ('title', 'author')
     def __str__(self):
         return self.title
 
